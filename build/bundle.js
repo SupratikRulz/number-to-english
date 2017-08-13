@@ -449,72 +449,79 @@ var SpecialMiddle = exports.SpecialMiddle = function () {
             var convertedWord = "";
             switch (this.select) {
                 case "decimal":
-                    var pointIndex = this.word.indexOf(".");
-                    var firstPartNumber = this.word.substring(0, pointIndex);
-                    var firstPartWord = w2n.doNumberToEnglish(firstPartNumber);
-                    convertedWord = firstPartWord + " point ";
-                    var secondPartNumber = this.word.substring(pointIndex + 1);
-                    var secondPartWord = "";
-                    for (var i = 0; i < secondPartNumber.toString().length; i++) {
-                        secondPartWord = secondPartWord + " " + w2n.doNumberToEnglish(secondPartNumber.toString().charAt(i));
+                    {
+                        var pointIndex = this.word.indexOf(".");
+                        var firstPartNumber = this.word.substring(0, pointIndex);
+                        var firstPartWord = w2n.doNumberToEnglish(firstPartNumber);
+                        convertedWord = firstPartWord + " point ";
+                        var secondPartNumber = this.word.substring(pointIndex + 1);
+                        var secondPartWord = "";
+                        for (var i = 0; i < secondPartNumber.toString().length; i++) {
+                            secondPartWord = secondPartWord + " " + w2n.doNumberToEnglish(secondPartNumber.toString().charAt(i));
+                        }
+                        if (/[a-zA-z]/.test(this.word)) {
+                            var alphabet = /[a-zA-Z]+/.exec(this.word);
+                            convertedWord = convertedWord + secondPartWord.trim() + " " + alphabet;
+                        } else {
+                            convertedWord = convertedWord + secondPartWord.trim() + " ";
+                        }
+                        //console.log(convertedWord);
+                        //replace(convertedWord, this.index);
+                        break;
                     }
-                    if (/[a-zA-z]/.test(this.word)) {
-                        var alphabet = /[a-zA-Z]+/.exec(this.word);
-                        convertedWord = convertedWord + secondPartWord.trim() + " " + alphabet;
-                    } else {
-                        convertedWord = convertedWord + secondPartWord.trim() + " ";
-                    }
-                    //console.log(convertedWord);
-                    //replace(convertedWord, this.index);
-                    break;
                 case "fraction":
-                    var byIndex = this.word.indexOf("/");
-                    var firstPartNumber2 = this.word.substring(0, byIndex);
-                    var firstPartWord2 = w2n.doNumberToEnglish(firstPartNumber2);
-                    var secondPartNumber2 = this.word.substring(byIndex + 1);
-                    var secondPartWord2 = w2n.doNumberToEnglish(secondPartNumber2);
-                    convertedWord = firstPartWord2 + " by " + secondPartWord2;
-                    //console.log(convertedWord);
-                    //replace(convertedWord, this.index);
-                    break;
+                    {
+                        var byIndex = this.word.indexOf("/");
+                        var firstPartNumber2 = this.word.substring(0, byIndex);
+                        var firstPartWord2 = w2n.doNumberToEnglish(firstPartNumber2);
+                        var secondPartNumber2 = this.word.substring(byIndex + 1);
+                        var secondPartWord2 = w2n.doNumberToEnglish(secondPartNumber2);
+                        convertedWord = firstPartWord2 + " by " + secondPartWord2;
+                        //console.log(convertedWord);
+                        //replace(convertedWord, this.index);
+                        break;
+                    }
                 case "time":
                 case "date":
                 case "other":
-                    var sentenceArray = this.word.split(/\d+/g);
-                    var digitArray = this.word.match(/\d+/g);
-                    if (digitArray != null) {
-                        var len1 = sentenceArray.length;
-                        var len2 = digitArray.length;
-                        var len = len1 > len2 ? len1 : len2;
-                        var x = 0;
-                        //console.log(sentenceArray[x]);
-                        while (x < len) {
-                            convertedWord = convertedWord + (sentenceArray[x] ? sentenceArray[x] : "");
-                            digitArray[x] ? convertedWord = convertedWord + w2n.doNumberToEnglish(digitArray[x]) : convertedWord = convertedWord + "";
-                            x++;
+                    {
+                        var sentenceArray = this.word.split(/\d+/g);
+                        var digitArray = this.word.match(/\d+/g);
+                        if (digitArray != null) {
+                            var len1 = sentenceArray.length;
+                            var len2 = digitArray.length;
+                            var len = len1 > len2 ? len1 : len2;
+                            var x = 0;
+                            //console.log(sentenceArray[x]);
+                            while (x < len) {
+                                convertedWord = convertedWord + (sentenceArray[x] ? sentenceArray[x] : "");
+                                digitArray[x] ? convertedWord = convertedWord + w2n.doNumberToEnglish(digitArray[x]) : convertedWord = convertedWord + "";
+                                x++;
+                            }
                         }
+                        //console.log(convertedWord);
+                        //replace(convertedWord, this.index);
+                        break;
                     }
-                    //console.log(convertedWord);
-                    //replace(convertedWord, this.index);
-                    break;
                 case "phno":
-                    var digitArray2 = this.word.match(/\d+/g);
-                    convertedWord = "plus ";
-                    var temp = "";
-                    for (var _i = 0; _i < digitArray2[0].toString().length; _i++) {
-                        temp = temp + " " + w2n.doNumberToEnglish(digitArray2[0].toString().charAt(_i));
-                    }
-                    convertedWord = convertedWord + temp + " ";
-                    temp = "";
-                    for (var _i2 = 0; _i2 < digitArray2[1].toString().length; _i2++) {
-                        temp = temp + " " + w2n.doNumberToEnglish(digitArray2[1].toString().charAt(_i2));
-                    }
+                    {
+                        var digitArray2 = this.word.match(/\d+/g);
+                        convertedWord = "plus ";
+                        var temp = "";
+                        for (var _i = 0; _i < digitArray2[0].toString().length; _i++) {
+                            temp = temp + " " + w2n.doNumberToEnglish(digitArray2[0].toString().charAt(_i));
+                        }
+                        convertedWord = convertedWord + temp + " ";
+                        temp = "";
+                        for (var _i2 = 0; _i2 < digitArray2[1].toString().length; _i2++) {
+                            temp = temp + " " + w2n.doNumberToEnglish(digitArray2[1].toString().charAt(_i2));
+                        }
 
-                    convertedWord = convertedWord + "dash " + temp;
-                    //console.log(convertedWord);
-                    //replace(convertedWord, this.index);
-                    break;
-
+                        convertedWord = convertedWord + "dash " + temp;
+                        //console.log(convertedWord);
+                        //replace(convertedWord, this.index);
+                        break;
+                    }
             }
             return convertedWord;
         }
