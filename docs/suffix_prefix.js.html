@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: suffix_prefix.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: suffix_prefix.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { NumberToEnglish } from "./digit_to_english.js";
+
+/**
+ * 
+ * 
+ * @export
+ * @class SuffixPrefix
+ */
+export class SuffixPrefix {
+    /**
+     * Creates an instance of SuffixPrefix.
+     * @param {any} word 
+     * @memberof SuffixPrefix
+     */
+    constructor(word) {
+        this.word = word;
+        this.select = "none";
+    }
+
+    /**
+     * 
+     * 
+     * @returns {true|false} true or false value according to match  
+     * @memberof SuffixPrefix
+     */
+    isSuffixPrefix() {
+        if (/^[+][0-9]{2}[-][0-9]{10}$/.test(this.word)) {
+            this.select = "none";
+        } else if (/^[@#`~$%^&amp;*()_\-+={}\\|:;"'?.>,&lt;]+\d+$/.test(this.word)) {
+            this.select = "prefix";
+        } else if (/\d+[r][d]|\d+[t][h]|\d+[n][d]|\d+[s][t]|\d+[s#`~$%^&amp;*()_\-+={}\\|;"'?>,&lt;]/.test(this.word)) {
+            this.select = "suffix";
+        }
+        return this.select == "none" ? false : true;
+    }
+
+    /**
+     * 
+     * 
+     * @returns {string} changes the digits in the category to english words 
+     * @memberof SuffixPrefix
+     */
+    doSuffixPrefixWord() {
+        let w2n = new NumberToEnglish(this.word);
+        let convertedWord = "";
+        let sentenceArray = this.word.split(/\d+/g);
+        let digitArray = this.word.match(/\d+/g);
+        switch (this.select) {
+            case "suffix":
+                if (digitArray != null) {
+                    var len1 = sentenceArray.length;
+                    var len2 = digitArray.length;
+                    var len = len1 > len2 ? len1 : len2;
+                    var x = 0;
+                    while (x &lt; len) {
+                        convertedWord = convertedWord + (sentenceArray[x] ? sentenceArray[x] : "");
+                        digitArray[x] ? convertedWord = convertedWord + w2n.doNumberToEnglish(digitArray[x]) : convertedWord = convertedWord + "";
+                        x++;
+                    }
+                }
+                convertedWord = convertedWord.replace("threerd", "third");
+                convertedWord = convertedWord.replace("onest", "first");
+                convertedWord = convertedWord.replace("twond", "second");
+                convertedWord = convertedWord.replace("fiveth", "fifth");
+                convertedWord = convertedWord.replace("eightth", "eighth");
+                convertedWord = convertedWord.replace("nineth", "ninth");
+                break;
+            case "prefix":
+                if (digitArray != null) {
+                    var leng1 = sentenceArray.length;
+                    var leng2 = digitArray.length;
+                    var leng = leng1 > leng2 ? leng1 : leng2;
+                    var xg = 0;
+                    while (xg &lt; leng) {
+                        convertedWord = convertedWord + (sentenceArray[xg] ? sentenceArray[xg] : "");
+                        digitArray[xg] ? convertedWord = convertedWord + w2n.doNumberToEnglish(digitArray[xg]) : convertedWord = convertedWord + "";
+                        xg++;
+                    }
+                }
+                break;
+        }
+        return convertedWord;
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Cardinal.html">Cardinal</a></li><li><a href="Cardinal.exports.Cardinal.html">exports.Cardinal</a></li><li><a href="Chunk.html">Chunk</a></li><li><a href="Chunk.exports.Chunk.html">exports.Chunk</a></li><li><a href="Decider.html">Decider</a></li><li><a href="Decider.exports.Decider.html">exports.Decider</a></li><li><a href="Identifier.html">Identifier</a></li><li><a href="Identifier.exports.Identifier.html">exports.Identifier</a></li><li><a href="NumberToEnglish.html">NumberToEnglish</a></li><li><a href="NumberToEnglish.exports.NumberToEnglish.html">exports.NumberToEnglish</a></li><li><a href="SpecialMiddle.html">SpecialMiddle</a></li><li><a href="SpecialMiddle.exports.SpecialMiddle.html">exports.SpecialMiddle</a></li><li><a href="SuffixPrefix.html">SuffixPrefix</a></li><li><a href="SuffixPrefix.exports.SuffixPrefix.html">exports.SuffixPrefix</a></li></ul><h3>Global</h3><ul><li><a href="global.html#converttakesinputfromthetextboxanddisplaysresultinresultboxwhenclickedonconvertbutton!Itisthestartingpointoftheapplication">convert 
+takes input from the textbox and displays result in resultbox when clicked on convert button!It is the starting point of the application</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.4</a> on Mon Aug 14 2017 01:51:24 GMT+0530 (IST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,10 +1,26 @@
 import { Identifier } from "./identifier.js";
+/**
+ * 
+ * 
+ * @export
+ * @class Chunk
+ */
 export class Chunk {
 
+    /**
+     * Creates an instance of Chunk.
+     * @param {string} text 
+     * @memberof Chunk
+     */
     constructor(text) {
         this.text = text;
     }
 
+    /**
+     * 
+     * 
+     * @memberof Chunk creates the chunk of 2000 characters and sends to identifier time to time
+     */
     startChunking() {
         let i = 0;
         let tempString = " ";

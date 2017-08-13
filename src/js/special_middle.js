@@ -1,12 +1,29 @@
 import { NumberToEnglish } from "./digit_to_english.js";
 
+/**
+ * 
+ * 
+ * @export
+ * @class SpecialMiddle
+ */
 export class SpecialMiddle {
 
+    /**
+     * Creates an instance of SpecialMiddle.
+     * @param {string} word 
+     * @memberof SpecialMiddle
+     */
     constructor(word) {
         this.word = word;
         this.select = "none";
     }
 
+    /**
+     * 
+     * 
+     * @returns {true|false} true or false value according to match 
+     * @memberof SpecialMiddle
+     */
     isSpecialMiddle() {
         if (/^\d+[.]\d+[a-zA-Z]*$/.test(this.word)) {
             this.select = "decimal";
@@ -24,6 +41,13 @@ export class SpecialMiddle {
 
         return this.select == "none" ? false : true;
     }
+
+    /**
+     * 
+     * 
+     * @returns {string} changes the digits in the category to english words
+     * @memberof SpecialMiddle
+     */
 
     doSpecialMiddleWord() {
         let w2n = new NumberToEnglish(this.word);
@@ -46,8 +70,6 @@ export class SpecialMiddle {
             } else {
                 convertedWord = convertedWord + secondPartWord.trim() + " ";
             }
-            //console.log(convertedWord);
-            //replace(convertedWord, this.index);
             break;
         }
         case "fraction":
@@ -58,8 +80,6 @@ export class SpecialMiddle {
             let secondPartNumber2 = this.word.substring(byIndex + 1);
             let secondPartWord2 = w2n.doNumberToEnglish(secondPartNumber2);
             convertedWord = firstPartWord2 + " by " + secondPartWord2;
-            //console.log(convertedWord);
-            //replace(convertedWord, this.index);
             break;
         }
         case "time":
@@ -73,15 +93,12 @@ export class SpecialMiddle {
                 var len2 = digitArray.length;
                 var len = len1 > len2 ? len1 : len2;
                 var x = 0;
-                //console.log(sentenceArray[x]);
                 while (x < len) {
                     convertedWord = convertedWord + (sentenceArray[x] ? sentenceArray[x] : "");
                     digitArray[x] ? convertedWord = convertedWord + w2n.doNumberToEnglish(digitArray[x]) : convertedWord = convertedWord + "";
                     x++;
                 }
             }
-            //console.log(convertedWord);
-            //replace(convertedWord, this.index);
             break;
         }
         case "phno":
@@ -99,8 +116,6 @@ export class SpecialMiddle {
             }
 
             convertedWord = convertedWord + "dash " + temp;
-            //console.log(convertedWord);
-            //replace(convertedWord, this.index);
             break;
         }
         }

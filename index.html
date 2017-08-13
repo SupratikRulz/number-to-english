@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <title>number-to-english converter</title>
+    <!-- <link rel="stylesheet" href="asset/css/style.css" /> -->
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: #010101;
+            text-align: center;
+            color: whitesmoke;
+        }
+        
+        #textBox,
+        #resultbox {
+            margin-top: 100px;
+            background-color: #101010;
+            color: whitesmoke;
+            padding: 30px;
+        }
+        
+        #resultbox {
+            margin-top: 25px;
+        }
+        
+        #convert {
+            background-color: green;
+            color: whitesmoke;
+            margin-top: 25px;
+        }
+    </style>
+    <div id="container">
+        Digit to English word Converter
+        <div><textarea id="textBox" rows="10" cols="60"></textarea></div>
+        <div><button id="convert">Convert</button></div>
+        <div><textarea id="resultBox" rows="10" cols="60" readonly></textarea></div>
+    </div>
+    <!-- <script type="text/javascript" src="bundle.js"></script> -->
+<script type="text/javascript" src="./build/bundle.js"></script></body>
+
+</html>

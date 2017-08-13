@@ -78,12 +78,32 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * 
+ * 
+ * @export
+ * @class NumberToEnglish
+ */
 var NumberToEnglish = exports.NumberToEnglish = function () {
+    /**
+     * Creates an instance of NumberToEnglish.
+     * @param {number} digit 
+     * @memberof NumberToEnglish
+     */
     function NumberToEnglish(digit) {
         _classCallCheck(this, NumberToEnglish);
 
         this.words = digit;
     }
+
+    /**
+     * 
+     * 
+     * @param {number} n 
+     * @returns {string} converts the digit @param n to equivalent english word
+     * @memberof NumberToEnglish
+     */
+
 
     _createClass(NumberToEnglish, [{
         key: "doNumberToEnglish",
@@ -148,13 +168,6 @@ var NumberToEnglish = exports.NumberToEnglish = function () {
                     if (word = tens[ints[1]]) {
                         words.push(word);
                     }
-                    /* Add "and" string after units or tens integer if: */
-                    // if (ints[0] || ints[1]) {
-                    //     /* Chunk has a hundreds integer or chunk is the first of multiple chunks */
-                    //     if (ints[2] || !i && chunksLen) {
-                    //         words.push(and);
-                    //     }
-                    // }
                     /* Add hundreds word if array item exists */
                     if (word = units[ints[2]]) {
                         words.push(word + " hundred");
@@ -177,11 +190,16 @@ var NumberToEnglish = exports.NumberToEnglish = function () {
 
 var _chunker = __webpack_require__(2);
 
+/**
+ * @function convert 
+ * takes input from the textbox and displays result in resultbox when clicked on convert button!It is the starting point of the application
+ * 
+ */
 var convert = function convert() {
-    var text = document.getElementById("textBox").value;
-    document.getElementById("resultBox").value = "";
-    var chunkObj = new _chunker.Chunk(text);
-    chunkObj.startChunking();
+  var text = document.getElementById("textBox").value;
+  document.getElementById("resultBox").value = "";
+  var chunkObj = new _chunker.Chunk(text);
+  chunkObj.startChunking();
 };
 document.getElementById("convert").addEventListener("click", convert);
 
@@ -203,12 +221,31 @@ var _identifier = __webpack_require__(3);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * 
+ * 
+ * @export
+ * @class Chunk
+ */
 var Chunk = exports.Chunk = function () {
+
+    /**
+     * Creates an instance of Chunk.
+     * @param {string} text 
+     * @memberof Chunk
+     */
     function Chunk(text) {
         _classCallCheck(this, Chunk);
 
         this.text = text;
     }
+
+    /**
+     * 
+     * 
+     * @memberof Chunk creates the chunk of 2000 characters and sends to identifier time to time
+     */
+
 
     _createClass(Chunk, [{
         key: "startChunking",
@@ -248,16 +285,36 @@ var _decider = __webpack_require__(4);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * 
+ * 
+ * @export
+ * @class Identifier
+ */
 var Identifier = exports.Identifier = function () {
+    /**
+     * Creates an instance of Identifier.
+     * @param {string} text 
+     * @param {string} textArray 
+     * @memberof Identifier
+     */
+
     function Identifier(text, textArray) {
         _classCallCheck(this, Identifier);
 
-        //console.log(text);
         this.text = text;
         this.textArray = textArray;
         this.counter = 0;
         this.timeoutCounter = 0;
     }
+
+    /**
+     * 
+     * 
+     * @memberof Identifier which sends the splitted texts to decider asynchronously and 
+     * merges the changed texts into the array when all setTimeouts are done executing and 
+     * displays the result 
+     */
 
     _createClass(Identifier, [{
         key: "identifyNumberAndStore",
@@ -290,12 +347,19 @@ var Identifier = exports.Identifier = function () {
             var that = this;
             flag == false ? this.displayArray(that) : null;
         }
+
+        /**
+         * 
+         * 
+         * @param {this} that 
+         * @memberof Identifier
+         */
+
     }, {
         key: "displayArray",
         value: function displayArray(that) {
             var temp = document.getElementById("resultBox").value;
             document.getElementById("resultBox").value = temp + " " + that.textArray.join(" ");
-            //console.log("Joined: " + temp2);
         }
     }]);
 
@@ -324,17 +388,36 @@ var _suffix_prefix = __webpack_require__(7);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * 
+ * 
+ * @export
+ * @class Decider
+ */
 var Decider = exports.Decider = function () {
+
+    /**
+     * Creates an instance of Decider.
+     * @param {string} word 
+     * @memberof Decider
+     */
     function Decider(word) {
         _classCallCheck(this, Decider);
 
         this.word = word;
     }
 
+    /**
+     * 
+     * 
+     * @returns {string} word after conversion
+     * @memberof Decider
+     */
+
+
     _createClass(Decider, [{
         key: "decide",
         value: function decide() {
-            //console.log(this.word);
             var cardinalObj = new _cardinal.Cardinal(this.word);
             var specialMiddleObj = new _special_middle.SpecialMiddle(this.word);
             var suffixPrefixObj = new _suffix_prefix.SuffixPrefix(this.word);
@@ -360,7 +443,7 @@ var Decider = exports.Decider = function () {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.Cardinal = undefined;
 
@@ -370,31 +453,57 @@ var _digit_to_english = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * 
+ * 
+ * @export
+ * @class Cardinal
+ */
 var Cardinal = exports.Cardinal = function () {
-    function Cardinal(word) {
-        _classCallCheck(this, Cardinal);
 
-        this.word = word;
+  /**
+   * Creates an instance of Cardinal.
+   * @param {string} word 
+   * @memberof Cardinal
+   */
+  function Cardinal(word) {
+    _classCallCheck(this, Cardinal);
+
+    this.word = word;
+  }
+
+  /**
+   * 
+   * 
+   * @returns {true|false} checks if the input is in cardinal format or not
+   * @memberof Cardinal
+   */
+
+
+  _createClass(Cardinal, [{
+    key: "isCardinal",
+    value: function isCardinal() {
+      return (/^[0-9]+$/.test(this.word) ? true : false
+      );
     }
 
-    _createClass(Cardinal, [{
-        key: "isCardinal",
-        value: function isCardinal() {
-            return (/^[0-9]+$/.test(this.word) ? true : false
-            );
-        }
-    }, {
-        key: "doCardinalWord",
-        value: function doCardinalWord() {
-            var w2n = new _digit_to_english.NumberToEnglish(this.word);
-            var convertedWord = w2n.doNumberToEnglish(this.word);
-            //console.log(convertedWord);
-            // replace(convertedWord, this.index);
-            return convertedWord;
-        }
-    }]);
+    /**
+     * 
+     * 
+     * @returns {string} which is the english word equivalent to the cardinal input
+     * @memberof Cardinal
+     */
 
-    return Cardinal;
+  }, {
+    key: "doCardinalWord",
+    value: function doCardinalWord() {
+      var w2n = new _digit_to_english.NumberToEnglish(this.word);
+      var convertedWord = w2n.doNumberToEnglish(this.word);
+      return convertedWord;
+    }
+  }]);
+
+  return Cardinal;
 }();
 
 /***/ }),
@@ -415,13 +524,33 @@ var _digit_to_english = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * 
+ * 
+ * @export
+ * @class SpecialMiddle
+ */
 var SpecialMiddle = exports.SpecialMiddle = function () {
+
+    /**
+     * Creates an instance of SpecialMiddle.
+     * @param {string} word 
+     * @memberof SpecialMiddle
+     */
     function SpecialMiddle(word) {
         _classCallCheck(this, SpecialMiddle);
 
         this.word = word;
         this.select = "none";
     }
+
+    /**
+     * 
+     * 
+     * @returns {true|false} true or false value according to match 
+     * @memberof SpecialMiddle
+     */
+
 
     _createClass(SpecialMiddle, [{
         key: "isSpecialMiddle",
@@ -442,6 +571,14 @@ var SpecialMiddle = exports.SpecialMiddle = function () {
 
             return this.select == "none" ? false : true;
         }
+
+        /**
+         * 
+         * 
+         * @returns {string} changes the digits in the category to english words
+         * @memberof SpecialMiddle
+         */
+
     }, {
         key: "doSpecialMiddleWord",
         value: function doSpecialMiddleWord() {
@@ -465,8 +602,6 @@ var SpecialMiddle = exports.SpecialMiddle = function () {
                         } else {
                             convertedWord = convertedWord + secondPartWord.trim() + " ";
                         }
-                        //console.log(convertedWord);
-                        //replace(convertedWord, this.index);
                         break;
                     }
                 case "fraction":
@@ -477,8 +612,6 @@ var SpecialMiddle = exports.SpecialMiddle = function () {
                         var secondPartNumber2 = this.word.substring(byIndex + 1);
                         var secondPartWord2 = w2n.doNumberToEnglish(secondPartNumber2);
                         convertedWord = firstPartWord2 + " by " + secondPartWord2;
-                        //console.log(convertedWord);
-                        //replace(convertedWord, this.index);
                         break;
                     }
                 case "time":
@@ -492,15 +625,12 @@ var SpecialMiddle = exports.SpecialMiddle = function () {
                             var len2 = digitArray.length;
                             var len = len1 > len2 ? len1 : len2;
                             var x = 0;
-                            //console.log(sentenceArray[x]);
                             while (x < len) {
                                 convertedWord = convertedWord + (sentenceArray[x] ? sentenceArray[x] : "");
                                 digitArray[x] ? convertedWord = convertedWord + w2n.doNumberToEnglish(digitArray[x]) : convertedWord = convertedWord + "";
                                 x++;
                             }
                         }
-                        //console.log(convertedWord);
-                        //replace(convertedWord, this.index);
                         break;
                     }
                 case "phno":
@@ -518,8 +648,6 @@ var SpecialMiddle = exports.SpecialMiddle = function () {
                         }
 
                         convertedWord = convertedWord + "dash " + temp;
-                        //console.log(convertedWord);
-                        //replace(convertedWord, this.index);
                         break;
                     }
             }
@@ -548,13 +676,32 @@ var _digit_to_english = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * 
+ * 
+ * @export
+ * @class SuffixPrefix
+ */
 var SuffixPrefix = exports.SuffixPrefix = function () {
+    /**
+     * Creates an instance of SuffixPrefix.
+     * @param {any} word 
+     * @memberof SuffixPrefix
+     */
     function SuffixPrefix(word) {
         _classCallCheck(this, SuffixPrefix);
 
         this.word = word;
         this.select = "none";
     }
+
+    /**
+     * 
+     * 
+     * @returns {true|false} true or false value according to match  
+     * @memberof SuffixPrefix
+     */
+
 
     _createClass(SuffixPrefix, [{
         key: "isSuffixPrefix",
@@ -568,6 +715,14 @@ var SuffixPrefix = exports.SuffixPrefix = function () {
             }
             return this.select == "none" ? false : true;
         }
+
+        /**
+         * 
+         * 
+         * @returns {string} changes the digits in the category to english words 
+         * @memberof SuffixPrefix
+         */
+
     }, {
         key: "doSuffixPrefixWord",
         value: function doSuffixPrefixWord() {
@@ -582,7 +737,6 @@ var SuffixPrefix = exports.SuffixPrefix = function () {
                         var len2 = digitArray.length;
                         var len = len1 > len2 ? len1 : len2;
                         var x = 0;
-                        //console.log(sentenceArray[x]);
                         while (x < len) {
                             convertedWord = convertedWord + (sentenceArray[x] ? sentenceArray[x] : "");
                             digitArray[x] ? convertedWord = convertedWord + w2n.doNumberToEnglish(digitArray[x]) : convertedWord = convertedWord + "";
@@ -595,8 +749,6 @@ var SuffixPrefix = exports.SuffixPrefix = function () {
                     convertedWord = convertedWord.replace("fiveth", "fifth");
                     convertedWord = convertedWord.replace("eightth", "eighth");
                     convertedWord = convertedWord.replace("nineth", "ninth");
-                    //console.log(convertedWord);
-                    //replace(convertedWord, this.index);
                     break;
                 case "prefix":
                     if (digitArray != null) {
@@ -604,15 +756,12 @@ var SuffixPrefix = exports.SuffixPrefix = function () {
                         var leng2 = digitArray.length;
                         var leng = leng1 > leng2 ? leng1 : leng2;
                         var xg = 0;
-                        //console.log(sentenceArray[x]);
                         while (xg < leng) {
                             convertedWord = convertedWord + (sentenceArray[xg] ? sentenceArray[xg] : "");
                             digitArray[xg] ? convertedWord = convertedWord + w2n.doNumberToEnglish(digitArray[xg]) : convertedWord = convertedWord + "";
                             xg++;
                         }
                     }
-                    //console.log(convertedWord);
-                    //replace(convertedWord, this.index);
                     break;
             }
             return convertedWord;
